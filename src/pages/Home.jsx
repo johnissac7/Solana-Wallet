@@ -12,6 +12,7 @@ function Home() {
   };
 
   const [importWallet, setImportWallet] = useState(false);
+  const [mnemonic, setMnemonic] = useState("");
 
   return (
     <div>
@@ -24,7 +25,13 @@ function Home() {
           <br />
           <br />
           <button onClick={() => setImportWallet(true)}>Import Wallet</button>
-          {importWallet && <ImportWallet />}
+          {importWallet && (
+            <ImportWallet
+              mnemonic={mnemonic}
+              setMnemonic={setMnemonic}
+              setWallet={setWallet}
+            />
+          )}
         </div>
       ) : (
         <Dashboard wallet={wallet} />
