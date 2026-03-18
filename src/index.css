@@ -2,6 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Add to your index.css */
 * {
   font-family: Roboto;
+}
+
+/* index.css */
+
+/* Smoky background blobs - made softer for better sync */
+.smoke-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+  animation: float 25s infinite alternate ease-in-out;
+}
+
+.one {
+  width: 450px;
+  height: 450px;
+  background: #355245;
+  top: -10%;
+  left: -5%;
+  opacity: 0.4;
+}
+.two {
+  width: 550px;
+  height: 550px;
+  background: #101916;
+  bottom: -15%;
+  right: -5%;
+  opacity: 0.6;
+}
+.three {
+  width: 350px;
+  height: 350px;
+  background: #648374;
+  top: 30%;
+  left: 20%;
+  opacity: 0.2;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  100% {
+    transform: translate(10%, 15%) scale(1.1) rotate(20deg);
+  }
+}
+
+/* Texture Grain - helps blend the box with the bg */
+.forest-smoke-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/pinstriped-suit.png");
+  opacity: 0.02;
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }
