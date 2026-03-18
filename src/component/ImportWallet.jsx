@@ -1,9 +1,9 @@
 import React from "react";
-import { createWallet } from "../utils/wallet";
+import { createWallet, importWalletMnemonic } from "../utils/wallet";
 
 const ImportWallet = ({ mnemonic, setMnemonic, setWallet }) => {
-  const importWallet = async () => {
-    const newWallet = await createWallet();
+  const handleImport = async () => {
+    const newWallet = await importWalletMnemonic(mnemonic);
     setWallet(newWallet);
     console.log(newWallet);
   };
@@ -20,7 +20,9 @@ const ImportWallet = ({ mnemonic, setMnemonic, setWallet }) => {
       />
       <br />
       <br />
-      <button onClick={importWallet}>Generate</button>
+      <button className="bg-sky-500" onClick={handleImport}>
+        Generate
+      </button>
     </div>
   );
 };

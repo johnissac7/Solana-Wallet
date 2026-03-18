@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createWallet } from "../utils/wallet";
+import { createWallet, importWalletMnemonic } from "../utils/wallet";
 import Dashboard from "./Dashboard";
 import ImportWallet from "../component/ImportWallet";
 
@@ -21,10 +21,14 @@ function Home() {
           <div>
             <h1>Welcome!</h1>
           </div>
-          <button onClick={generateWallet}>Generate Wallet</button>
+          <button className="bg-sky-500" onClick={generateWallet}>
+            Generate Wallet
+          </button>
           <br />
           <br />
-          <button onClick={() => setImportWallet(true)}>Import Wallet</button>
+          <button className="bg-sky-500" onClick={() => setImportWallet(true)}>
+            Import Wallet
+          </button>
           {importWallet && (
             <ImportWallet
               mnemonic={mnemonic}
