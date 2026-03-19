@@ -1,3 +1,7 @@
-const Addwallet = () => <div />;
+const Addwallet = () => {
+    return (
+        
+    );
+};
 
 export default Addwallet;
