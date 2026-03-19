@@ -26,9 +26,7 @@ function Home() {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center bg-[#0a0f0d] transition-all duration-1000 p-6 relative overflow-hidden font-sans"
-    >
+    <div className="min-h-screen flex items-center justify-center bg-[#0a0f0d] transition-all duration-1000 p-6 relative overflow-hidden font-sans">
       {/* Dynamic Smoky Blobs */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-60">
         <div className="smoke-blob one"></div>
@@ -46,14 +44,10 @@ function Home() {
         `}
         >
           <header className="text-center mb-12">
-            <h1
-              className="text-2xl font-black tracking-widest uppercase text-white/90"
-            >
+            <h1 className="text-2xl font-black tracking-widest uppercase text-white/90">
               Solana
             </h1>
-            <p
-              className="text-[10px] tracking-[0.6em] uppercase mt-1 opacity-30 text-white"
-            >
+            <p className="text-[10px] tracking-[0.6em] uppercase mt-1 opacity-30 text-white">
               Wallet
             </p>
           </header>

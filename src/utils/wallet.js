@@ -6,11 +6,17 @@ import { Buffer } from "buffer";
 globalThis.Buffer = Buffer;
 
 async function generate(mnemonic, index = 0) {
-  if (!bip39.validateMnemonic(mnemonic)) {
+  const normalizedMnemonic = String(mnemonic)
+    .trim()
+    .toLowerCase()
+    .split(/\s+/)
+    .join(" ");
+
+  if (!bip39.validateMnemonic(normalizedMnemonic)) {
     throw new Error("Invalid recovery phrase (mnemonic).");
   }
 
-  const seed = await bip39.mnemonicToSeed(mnemonic);
+  const seed = await bip39.mnemonicToSeed(normalizedMnemonic);
   const hd = HDKey.fromMasterSeed(seed);
 
   const path = `m/44'/501'/${index}'/0'`;
@@ -19,7 +25,7 @@ async function generate(mnemonic, index = 0) {
   const keypair = Keypair.fromSeed(derived.privateKey);
 
   return {
-    mnemonic,
+    mnemonic: normalizedMnemonic,
     publicKey: keypair.publicKey.toString(),
     secretKey: Array.from(keypair.secretKey),
   };

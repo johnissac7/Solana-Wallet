@@ -48,7 +48,10 @@ const ImportWallet = ({
                   : "bg-[#AFC1B6]/10 border border-[#648374]/10 text-[#355245] placeholder:text-[#355245]/30 focus:border-[#355245]/40 shadow-sm"
               }
             `}
-            onChange={(event) => setMnemonic(event.target.value)}
+            onChange={(event) => {
+              setMnemonic(event.target.value);
+              setError("");
+            }}
             value={mnemonic}
           />
           {/* Subtle glow on focus for dark mode */}
