@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ImportWallet from "../component/ImportWallet";
 import Dashboard from "./Dashboard";
 import { createWallet } from "../utils/wallet";
@@ -10,12 +10,25 @@ function Home() {
   const [mnemonic, setMnemonic] = useState("");
   const [error, setError] = useState("");
 
+  const persistWallet = (newWallet) => {
+    localStorage.setItem("wallet", JSON.stringify(newWallet));
+    setWallet(newWallet);
+  };
+
+  const clearWallet = () => {
+    localStorage.removeItem("wallet");
+    setWallet(null);
+    setIsImportingWallet(false);
+    setMnemonic("");
+    setError("");
+  };
+
   const generateWallet = async () => {
     setError("");
     setIsGenerating(true);
     try {
       const newWallet = await createWallet();
-      setWallet(newWallet);
+      persistWallet(newWallet);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Failed to generate wallet.",
@@ -24,6 +37,14 @@ function Home() {
       setIsGenerating(false);
     }
   };
+
+  useEffect(() => {
+    const storedWallet = localStorage.getItem("wallet");
+
+    if (storedWallet) {
+      setWallet(JSON.parse(storedWallet));
+    }
+  }, []);
 
   return (
     /* Removed 'transition-all duration-1000' from root to prevent background lag during swap */
@@ -39,7 +60,7 @@ function Home() {
         {wallet ? (
           /* DASHBOARD: Removed 'animate-in', 'zoom-in', and 'duration-700' for instant appearance */
           <div className="w-full">
-            <Dashboard wallet={wallet} />
+            <Dashboard wallet={wallet} onBack={clearWallet} />
           </div>
         ) : (
           /* ENTRY SCREEN: Kept centered only when wallet is null */
@@ -60,7 +81,7 @@ function Home() {
                   <ImportWallet
                     mnemonic={mnemonic}
                     setMnemonic={setMnemonic}
-                    setWallet={setWallet}
+                    setWallet={persistWallet}
                     setError={setError}
                   />
                   <button
