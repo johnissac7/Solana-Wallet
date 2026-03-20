@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ImportWallet from "../component/ImportWallet";
-import Dashboard from "./Dashboard";
+import Dashboard from "../Dashboard/Dashboard";
 import { createWallet } from "../utils/wallet";
 
 function Home() {

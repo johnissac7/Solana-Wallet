@@ -3,7 +3,7 @@ import { connection } from "../utils/solanaConnection";
 import { PublicKey } from "@solana/web3.js";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
-import ImportExport from "./ImportExport";
+import ImportExport from "./ActiveWallet";
 
 const TokenIcon = ({ logoURI, symbol, name }) => {
   const [imageError, setImageError] = useState(false);
@@ -326,8 +326,8 @@ function AccountDashboard({ wallet }) {
       </main>
       <Snackbar
         open={open}
-        message="copied!"
-        autoHideDuration={1000}
+        message="copied to clipboard!"
+        autoHideDuration={2000}
         onClose={handleClose}
       />
     </div>

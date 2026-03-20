@@ -2,7 +2,7 @@ import AccountDashboard from "./AccountDashboard";
 
 function Dashboard({ wallet, onBack }) {
   return (
-    <div className="relative w-full">
+    <div className="flex relative w-full">
       <button
         type="button"
         aria-label="Back"
