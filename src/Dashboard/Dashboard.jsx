@@ -1,4 +1,4 @@
-import AccountDashboard from "../component/AccountDashboard";
+import AccountDashboard from "./AccountDashboard";
 
 function Dashboard({ wallet, onBack }) {
   return (

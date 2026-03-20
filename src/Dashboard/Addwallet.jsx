@@ -1,7 +1,5 @@
 const Addwallet = () => {
-    return (
-        
-    );
+  return;
 };
 
 export default Addwallet;
