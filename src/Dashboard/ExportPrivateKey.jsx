@@ -1,6 +1,5 @@
 import { useState } from "react";
 import bs58 from "bs58";
-import { createPortal } from "react-dom";
 
 const ExportPrivateKey = ({ wallet, setShowExportPrivateKey }) => {
   const [isRevealed, setIsRevealed] = useState(false);

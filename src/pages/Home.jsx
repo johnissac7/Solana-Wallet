@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ImportWallet from "../component/ImportWallet";
-import Dashboard from "../Dashboard/Dashboard";
+import AccountDashboard from "../Dashboard/AccountDashboard";
 import { createWallet } from "../utils/wallet";
 
 function Home() {
@@ -9,6 +9,7 @@ function Home() {
   const [isImportingWallet, setIsImportingWallet] = useState(false);
   const [mnemonic, setMnemonic] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const persistWallet = (newWallet) => {
     localStorage.setItem("wallet", JSON.stringify(newWallet));
@@ -44,7 +45,13 @@ function Home() {
     if (storedWallet) {
       setWallet(JSON.parse(storedWallet));
     }
+
+    setLoading(false);
   }, []);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     /* Removed 'transition-all duration-1000' from root to prevent background lag during swap */
@@ -60,7 +67,7 @@ function Home() {
         {wallet ? (
           /* DASHBOARD: Removed 'animate-in', 'zoom-in', and 'duration-700' for instant appearance */
           <div className="w-full">
-            <Dashboard wallet={wallet} onBack={clearWallet} />
+            <AccountDashboard wallet={wallet} onLogout={clearWallet} />
           </div>
         ) : (
           /* ENTRY SCREEN: Kept centered only when wallet is null */

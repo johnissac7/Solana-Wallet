@@ -1,5 +1,10 @@
+import {createWallet } from "../utils/wallet";
+
 const Addwallet = () => {
-  return;
+
+  return(
+    
+  )
 };
 
 export default Addwallet;
