@@ -62,8 +62,8 @@ const CopyIcon = () => (
 
 function AccountDashboard({ wallet, onLogout }) {
   const [balance, setBalance] = useState(0);
-  //Copied Notification
   const [open, setOpen] = useState(false);
+  const [balanceLoading, setBalanceLoading] = useState(true);
 
   const handleClick = () => {
     setOpen(true); // show snackbar
@@ -109,12 +109,18 @@ function AccountDashboard({ wallet, onLogout }) {
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        if (!wallet?.publicKey) return;
+        if (!wallet?.publicKey) {
+          setBalanceLoading(false);
+          return;
+        }
+        setBalanceLoading(true);
         const publicKey = new PublicKey(wallet.publicKey);
         const lamports = await connection.getBalance(publicKey);
         setBalance(lamports / 1000000000);
       } catch (err) {
         console.error("Balance fetch error:", err);
+      } finally {
+        setBalanceLoading(false); // 🔥 stop loading
       }
     };
     fetchBalance();
@@ -178,16 +184,23 @@ function AccountDashboard({ wallet, onLogout }) {
               Total Net Worth
             </h2>
             <div className="flex flex-col items-center mb-8">
-              <div className="flex items-baseline gap-3">
-                <span className="text-5xl font-black tracking-tighter leading-none text-white/90">
-                  {balance.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                  })}
-                </span>
-                <span className="text-lg font-light text-white/20 tracking-widest uppercase">
-                  SOL
-                </span>
-              </div>
+              {balanceLoading ? (
+                /* Refined, Synced Skeleton Loader */
+                <div className="relative w-48 h-12 overflow-hidden bg-white/[0.03] rounded-2xl border border-white/5 shadow-inner">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
+                </div>
+              ) : (
+                <div className="flex items-baseline gap-3">
+                  <span className="text-5xl font-black tracking-tighter leading-none text-white/90">
+                    {balance.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                    })}
+                  </span>
+                  <span className="text-lg font-light text-white/20 tracking-widest uppercase">
+                    SOL
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="flex justify-center gap-4">
