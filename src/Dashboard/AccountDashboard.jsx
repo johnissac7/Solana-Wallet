@@ -62,7 +62,6 @@ const CopyIcon = () => (
 
 function AccountDashboard({ wallet, onLogout }) {
   const [balance, setBalance] = useState(0);
-
   //Copied Notification
   const [open, setOpen] = useState(false);
 
@@ -140,17 +139,32 @@ function AccountDashboard({ wallet, onLogout }) {
             Wallet
           </p>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="flex flex-col items-end text-right">
-            <span className="text-[9px] uppercase tracking-[0.2em] text-white/20">
-              Network
-            </span>
-            <span className="text-[10px] font-bold text-green-500/60 uppercase">
-              Mainnet Beta
-            </span>
+
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
+            <div className="flex flex-col items-end text-right">
+              <span className="text-[9px] uppercase tracking-[0.2em] text-white/20">
+                Network
+              </span>
+              <span className="text-[10px] font-bold text-green-500/60 uppercase">
+                Mainnet Beta
+              </span>
+            </div>
+            <div className="h-6 w-[1px] bg-white/10"></div>
+            <div className="w-2 h-2 rounded-full bg-green-500/40 animate-pulse"></div>
           </div>
-          <div className="h-6 w-[1px] bg-white/10"></div>
-          <div className="w-2 h-2 rounded-full bg-green-500/40 animate-pulse"></div>
+
+          {/* SUBTLE RED LOGOUT BUTTON */}
+          <button
+            onClick={onLogout}
+            className="group relative px-4 py-1.5 rounded-xl font-bold transition-all duration-500 overflow-hidden border border-red-500/20 text-red-500/40 hover:text-red-400 hover:bg-red-500/5 hover:border-red-500/40 active:scale-95"
+          >
+            <span className="relative z-10 uppercase tracking-widest text-[8px]">
+              Logout
+            </span>
+            {/* Subtle Shimmer Effect */}
+            <div className="absolute inset-0 bg-white/5 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+          </button>
         </div>
       </header>
 
