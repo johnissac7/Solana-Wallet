@@ -68,7 +68,11 @@ function Home() {
       <div className="relative z-10 w-full min-h-screen">
         {wallet ? (
           <div className="w-full">
-            <AccountDashboard wallet={wallet} onLogout={clearWallet} />
+            <AccountDashboard
+              wallet={wallet}
+              onLogout={clearWallet}
+              setWallet={setWallet}
+            />
           </div>
         ) : (
           /* REFINED ENTRY SCREEN (COMPACT VERSION) */

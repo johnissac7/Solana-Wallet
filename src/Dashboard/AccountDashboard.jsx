@@ -61,7 +61,7 @@ const CopyIcon = () => (
   </svg>
 );
 
-function AccountDashboard({ wallet, onLogout }) {
+function AccountDashboard({ wallet, onLogout, setWallet }) {
   const [balance, setBalance] = useState(0);
   const [open, setOpen] = useState(false);
   const [balanceLoading, setBalanceLoading] = useState(true);
@@ -315,7 +315,7 @@ function AccountDashboard({ wallet, onLogout }) {
             </div>
           </div>
 
-          <AccountsDisplay wallet={wallet} />
+          <AccountsDisplay wallet={wallet} setWallet={setWallet} />
         </section>
       </main>
       <Snackbar
