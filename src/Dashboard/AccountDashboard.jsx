@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import ImportExport from "./ActiveWallet";
 import AccountsDisplay from "./AccountsDisplay";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 const TokenIcon = ({ logoURI, symbol, name }) => {
   const [imageError, setImageError] = useState(false);
@@ -116,7 +117,7 @@ function AccountDashboard({ wallet, onLogout }) {
         setBalanceLoading(true);
         const publicKey = new PublicKey(wallet.publicKey);
         const lamports = await connection.getBalance(publicKey);
-        setBalance(lamports / 1000000000);
+        setBalance(lamports / LAMPORTS_PER_SOL);
       } catch (err) {
         console.error("Balance fetch error:", err);
       } finally {
@@ -135,7 +136,7 @@ function AccountDashboard({ wallet, onLogout }) {
   return (
     <div className="w-full min-h-screen text-white/90 px-10 py-12 lg:px-24 bg-transparent">
       {/* 1. HEADER */}
-      <header className="flex justify-between items-center mb-14 w-full max-w-[1100px] mx-auto border-b border-white/5 pb-8">
+      <header className="flex justify-between items-center mb-10 w-full max-w-[1100px] mx-auto border-b border-white/5 pb-8">
         <div className="flex flex-col">
           <h1 className="text-xl font-black tracking-[0.2em] uppercase text-white/90">
             Solana
@@ -178,39 +179,39 @@ function AccountDashboard({ wallet, onLogout }) {
       <main className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full max-w-[1100px] mx-auto">
         {/* LEFT COLUMN */}
         <section className="lg:col-span-7 space-y-6">
-          {/* COMPACT & CENTERED BALANCE TILE */}
-          <div className="relative overflow-hidden backdrop-blur-[40px] rounded-[3rem] p-10 bg-[#101916]/30 border border-white/5 shadow-2xl max-w-[400px] mx-auto">
-            <h2 className="text-[9px] tracking-[0.4em] uppercase text-[#AFC1B6] mb-3 opacity-60 text-center">
+          {/* INCREASED SIZE BALANCE TILE */}
+          <div className="relative overflow-hidden backdrop-blur-[40px] rounded-[3rem] p-12 bg-[#101916]/30 border border-white/5 shadow-2xl max-w-[460px] mx-auto">
+            <h2 className="text-[10px] tracking-[0.4em] uppercase text-[#AFC1B6] mb-4 opacity-60 text-center">
               Total Net Worth
             </h2>
-            <div className="flex flex-col items-center mb-8">
+            <div className="flex flex-col items-center mb-10">
               {balanceLoading ? (
-                /* Refined, Synced Skeleton Loader */
-                <div className="relative w-48 h-12 overflow-hidden bg-white/[0.03] rounded-2xl border border-white/5 shadow-inner">
+                /* Refined, Synced Skeleton Loader - Adjusted for new size */
+                <div className="relative w-56 h-14 overflow-hidden bg-white/[0.03] rounded-2xl border border-white/5 shadow-inner">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
                 </div>
               ) : (
                 <div className="flex items-baseline gap-3">
-                  <span className="text-5xl font-black tracking-tighter leading-none text-white/90">
+                  <span className="text-6xl font-black tracking-tighter leading-none text-white/90">
                     {balance.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                     })}
                   </span>
-                  <span className="text-lg font-light text-white/20 tracking-widest uppercase">
+                  <span className="text-xl font-light text-white/20 tracking-widest uppercase">
                     SOL
                   </span>
                 </div>
               )}
             </div>
 
-            <div className="flex justify-center gap-4">
-              <button className="group relative w-28 py-3 rounded-2xl font-bold transition-all duration-500 overflow-hidden bg-[#AFC1B6] text-[#101916] shadow-[0_10px_25px_rgba(175,193,182,0.15)] active:scale-95">
-                <span className="relative z-10 uppercase tracking-widest text-[9px]">
+            <div className="flex justify-center gap-6">
+              <button className="group relative w-32 py-3.5 rounded-2xl font-bold transition-all duration-500 overflow-hidden bg-[#AFC1B6] text-[#101916] shadow-[0_10px_25px_rgba(175,193,182,0.15)] active:scale-95">
+                <span className="relative z-10 uppercase tracking-widest text-[10px]">
                   Send
                 </span>
                 <div className="absolute inset-0 bg-white/40 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
               </button>
-              <button className="w-28 py-3 rounded-2xl bg-white/5 border border-white/10 text-[9px] font-bold uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/10 transition-all active:scale-95 backdrop-blur-sm">
+              <button className="w-32 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/10 transition-all active:scale-95 backdrop-blur-sm">
                 Receive
               </button>
             </div>

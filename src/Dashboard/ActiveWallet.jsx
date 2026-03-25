@@ -32,9 +32,9 @@ const ActiveWallet = ({ wallet }) => {
       <div className="grid grid-cols-1 gap-3">
         <button
           onClick={() => setShowExportPrivateKey(true)}
-          className="w-full py-3.5 rounded-xl transition-all duration-300 bg-white/5 border border-white/5 hover:bg-white/10 active:scale-[0.98]"
+          className="w-full py-3.5 rounded-xl transition-all duration-300 bg-white/5 border text-white/40 border-white/5 hover:bg-white/10 active:scale-[0.98]"
         >
-          <span className="font-bold tracking-widest text-[9px] uppercase text-white/70">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white transition-all0">
             Export Private Key
           </span>
         </button>
@@ -42,8 +42,8 @@ const ActiveWallet = ({ wallet }) => {
           onClick={() => setShowRecoveryPhrase(true)}
           className="w-full py-3.5 rounded-xl transition-all duration-300 bg-white/5 border border-white/5 hover:bg-white/10 active:scale-[0.98]"
         >
-          <span className="font-bold tracking-widest text-[9px] uppercase">
-            Recovery Phrase
+          <span className="text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white transition-all">
+            Recovery Phase
           </span>
         </button>
       </div>
