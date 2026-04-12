@@ -1,28 +1,37 @@
-import { useState, useEffect } from "react";
-import ImportWallet from "../component/ImportWallet";
-import AccountDashboard from "../Dashboard/AccountDashboard";
+import { useState, useCallback } from "react";
+import ImportWallet from "../components/ImportWallet";
+import AccountDashboard from "../features/wallet/AccountDashboard";
 import { createWallet } from "../utils/wallet";
 
+function readStoredWallet() {
+  try {
+    const stored = localStorage.getItem("wallet");
+    if (!stored) return null;
+    return JSON.parse(stored);
+  } catch {
+    return null;
+  }
+}
+
 function Home() {
-  const [wallet, setWallet] = useState(null);
+  const [wallet, setWallet] = useState(() => readStoredWallet());
   const [isGenerating, setIsGenerating] = useState(false);
   const [isImportingWallet, setIsImportingWallet] = useState(false);
   const [mnemonic, setMnemonic] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
 
-  const persistWallet = (newWallet) => {
+  const persistWallet = useCallback((newWallet) => {
     localStorage.setItem("wallet", JSON.stringify(newWallet));
     setWallet(newWallet);
-  };
+  }, []);
 
-  const clearWallet = () => {
+  const clearWallet = useCallback(() => {
     localStorage.removeItem("wallet");
     setWallet(null);
     setIsImportingWallet(false);
     setMnemonic("");
     setError("");
-  };
+  }, []);
 
   const generateWallet = async () => {
     setError("");
@@ -38,24 +47,6 @@ function Home() {
       setIsGenerating(false);
     }
   };
-
-  useEffect(() => {
-    const storedWallet = localStorage.getItem("wallet");
-
-    if (storedWallet) {
-      setWallet(JSON.parse(storedWallet));
-    }
-
-    setLoading(false);
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-white">
-        Loading...
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen w-full bg-[#0a0f0d] relative overflow-hidden font-sans">

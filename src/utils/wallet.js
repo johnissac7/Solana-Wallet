@@ -67,3 +67,11 @@ export const importWalletMnemonic = async (mnemonic) => {
     activeIndex: 0,
   };
 };
+
+/** Active derived account (publicKey / secretKey) for the stored HD wallet object. */
+export function getActiveAccount(wallet) {
+  if (!wallet?.wallets?.length) return null;
+  const idx =
+    typeof wallet.activeIndex === "number" ? wallet.activeIndex : 0;
+  return wallet.wallets[idx] ?? wallet.wallets[0] ?? null;
+}

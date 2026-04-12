@@ -1,11 +1,10 @@
 import { useState, useEffect, useMemo } from "react";
-import { connection } from "../utils/solanaConnection";
-import { PublicKey } from "@solana/web3.js";
-import Button from "@mui/material/Button";
+import { connection } from "../../utils/solanaConnection";
+import { PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import Snackbar from "@mui/material/Snackbar";
 import ImportExport from "./ActiveWallet";
 import AccountsDisplay from "./AccountsDisplay";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { getActiveAccount } from "../../utils/wallet";
 
 const TokenIcon = ({ logoURI, symbol, name }) => {
   const [imageError, setImageError] = useState(false);
@@ -66,6 +65,11 @@ function AccountDashboard({ wallet, onLogout, setWallet }) {
   const [open, setOpen] = useState(false);
   const [balanceLoading, setBalanceLoading] = useState(true);
 
+  const activePublicKey = useMemo(
+    () => getActiveAccount(wallet)?.publicKey,
+    [wallet],
+  );
+
   const handleClick = () => {
     setOpen(true); // show snackbar
   };
@@ -110,12 +114,12 @@ function AccountDashboard({ wallet, onLogout, setWallet }) {
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        if (!wallet?.publicKey) {
+        if (!activePublicKey) {
           setBalanceLoading(false);
           return;
         }
         setBalanceLoading(true);
-        const publicKey = new PublicKey(wallet.publicKey);
+        const publicKey = new PublicKey(activePublicKey);
         const lamports = await connection.getBalance(publicKey);
         setBalance(lamports / LAMPORTS_PER_SOL);
       } catch (err) {
@@ -125,11 +129,11 @@ function AccountDashboard({ wallet, onLogout, setWallet }) {
       }
     };
     fetchBalance();
-  }, [wallet?.publicKey]);
+  }, [activePublicKey]);
 
   const copyAddress = () => {
-    if (wallet?.publicKey) {
-      navigator.clipboard.writeText(wallet.publicKey);
+    if (activePublicKey) {
+      navigator.clipboard.writeText(activePublicKey);
     }
   };
 
@@ -298,7 +302,7 @@ function AccountDashboard({ wallet, onLogout, setWallet }) {
                 </label>
                 <div className="flex items-center justify-between p-4 rounded-xl bg-[#0a0f0d]/50 border border-white/5 hover:border-white/10 transition-all">
                   <span className="text-[11px] font-mono text-white/60 group-hover:text-[#AFC1B6] truncate max-w-[75%]">
-                    {wallet?.publicKey || "----"}
+                    {activePublicKey || "----"}
                   </span>
                   <button
                     onClick={() => {

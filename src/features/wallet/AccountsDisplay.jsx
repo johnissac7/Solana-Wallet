@@ -1,5 +1,4 @@
-import React from "react";
-import { addWallet } from "../utils/wallet";
+import { addWallet } from "../../utils/wallet";
 
 const AccountsDisplay = ({ wallet, setWallet }) => {
   const derivedWallets = wallet?.wallets || [];
@@ -13,7 +12,7 @@ const AccountsDisplay = ({ wallet, setWallet }) => {
 
   return (
     <div>
-      <div className="backdrop-blur-[40px] rounded-[2.5rem+] p-8 bg-[#101916]/30 border border-white/5 shadow-inner">
+      <div className="backdrop-blur-[40px] rounded-[2.5rem] p-8 bg-[#101916]/30 border border-white/5 shadow-inner">
         <div className="flex items-center justify-between mb-6 px-1">
           <h3 className="text-lg font-bold tracking-tight text-white/90">
             Accounts

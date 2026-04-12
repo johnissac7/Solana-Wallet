@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import bs58 from "bs58";
+import { getActiveAccount } from "../../utils/wallet";
 
 const ExportPrivateKey = ({ wallet, setShowExportPrivateKey }) => {
   const [isRevealed, setIsRevealed] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const privateKey = wallet?.secretKey ? bs58.encode(wallet.secretKey) : "";
+  const secretBytes = useMemo(() => {
+    const sk = getActiveAccount(wallet)?.secretKey;
+    if (!sk?.length) return null;
+    return new Uint8Array(sk);
+  }, [wallet]);
+
+  const privateKey = secretBytes ? bs58.encode(secretBytes) : "";
   const maskedKey = "•".repeat(35);
 
   const handleCopy = () => {

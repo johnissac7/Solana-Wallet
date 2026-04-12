@@ -1,16 +1,15 @@
 import { useState } from "react";
-import bs58 from "bs58";
 import { createPortal } from "react-dom";
 import ExportPrivateKey from "./ExportPrivateKey";
 import ShowRecoveryPhase from "./ShowRecoveryPhase";
 
 const ActiveWallet = ({ wallet }) => {
-  const [showExportPrivateKEy, setShowExportPrivateKey] = useState(false);
+  const [showExportPrivateKey, setShowExportPrivateKey] = useState(false);
   const [showRecoveryPhrase, setShowRecoveryPhrase] = useState(false);
 
   return (
     <div className="w-full">
-      {showExportPrivateKEy &&
+      {showExportPrivateKey &&
         createPortal(
           <ExportPrivateKey
             wallet={wallet}
